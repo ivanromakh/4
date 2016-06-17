@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Selecting</title>
+    <!--<link rel="stylesheet" type="text/css" href="{%  static 'game/sign.css' %}"/>-->
+</head>
+<body>
+
+
+
+
+
+<style>
+    .svg-content {
+	    display: block;
+    }
+    .svg-container {
+	    display: block;
+	    width: 20%;
+	    vertical-align: middle;
+	    margin: 0 auto;
+    }
+    rect {
+        background: -webkit-linear-gradient(left,rgba(255,0,0,0),rgba(255,0,0,1)); /*Safari 5.1-6*/
+        background: -o-linear-gradient(right,rgba(255,0,0,0),rgba(255,0,0,1)); /*Opera 11.1-12*/
+        background: -moz-linear-gradient(right,rgba(255,0,0,0),rgba(255,0,0,1)); /*Fx 3.6-15*/
+        background: linear-gradient(to right, rgba(255,0,0,0), rgba(255,0,0,1)); /*Standard*/
+    }
+    path, polyline {
+        fill: none;
+        stroke:black;
+        stroke-width:10px;
+        stroke-opacity:1;
+        stroke-linejoin:round;
+        stroke-linecap:round;
+    }
+	#f1 {
+		fill: none;
+        stroke:black;
+        stroke-width:5px;
+        stroke-opacity:1;
+        stroke-linejoin:round;
+        stroke-linecap:round;
+    }
+    #t1 {
+		font-size: 40px;
+		font-weight: bold;
+		color: black;
+		font-family: helvetica;
+	}
+	#image{
+	    opacity: 0.8;
+    }
+	#image:hover {
+		opacity: 1;
+		pointer: cursor;
+		-webkit-transition: opacity .5s ease-in-out;
+        -moz-transition: opacity .5s ease-in-out;
+        -ms-transition: opacity .5s ease-in-out;
+        -o-transition: opacity .5s ease-in-out;
+        transition: opacity .5s ease-in-out;
+		transition: 0.6s;
+	    transform-style: preserve-3d;
+	}
+	#leftcard {
+		fill: red;
+	}
+	#leftcard:hover {
+		fill: green;
+	}
+    #choosable_charater div{
+        float:left;
+    }
+
+    .svg-container{
+        opacity:0.5;
+    }
+    .svg-container:hover{
+        opacity:1;
+    }
+</style>
+<div id="choosable_charater">
+   {% for charater in choosable_charater %}
+    <div class="svg-container">
+	    <a href="/choise/{{ charater.name }}">
+        <svg version="1.1" viewBox="0 0 400 600" preserveAspectRatio="xMaxYMax meet" class="svg-content">
+            <defs>
+            <pattern id="transformedPattern"
+                x="1" y="1" width="5" height="5"
+                patternUnits="userSpaceOnUse"
+                patternTransform="rotate(45)"
+            >
+            <circle cx="1" cy="1" r="4" style="stroke: none; fill: #f3dc5f" />
+            </pattern>
+            </defs>
+		    <rect x="10" y="10"  width="380" height="580" style="fill: url(#transformedPattern); stroke:black;stroke-width:1;" />
+		    <path d="M10,10 390,10 390,590 10,590  10,10" />
+		    <text id="t1" x="30" y="60">{{ charater.name }}</text>
+    		{% if charater.name == "Воїн" %}
+                <image id="image" x="55" y="70"  width="65%" height="65%" xlink:href="http://127.0.0.1:8000/media/barwar.png" />
+		    {% elif charater.name == "Маг" %}
+                <image id="image" x="55" y="70"  width="65%" height="65%" xlink:href="http://127.0.0.1:8000/media/magi.png" />
+            {% elif charater.name == "Лучник" %}
+                <image id="image" x="55" y="70"  width="65%" height="65%" xlink:href="http://127.0.0.1:8000/media/arrow.png" />
+            {% elif charater.name == "Злодій" %}
+                <image id="image" x="55" y="70"  width="65%" height="65%" xlink:href="http://127.0.0.1:8000/media/dagger.png" />
+            {% endif %}
+            <circle cx="75" cy="520" r="40" stroke="black" stroke-width="3" fill="red" />
+            <circle cx="165" cy="520" r="40" stroke="black" stroke-width="3" fill="blue" />
+            <circle cx="265" cy="520" r="40" stroke="black" stroke-width="3" fill="green" />
+            <text id="t1" x="60" y="530">{{charater.strength}}</text>
+            <text id="t1" x="150" y="530">{{charater.intellegent}}</text>
+            <text id="t1" x="250" y="530">{{charater.swiftness}}</text>
+	    </svg>
+	</div>
+       </a>
+   {% endfor %}
+    </div>
+</body>
+</html>
